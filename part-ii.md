@@ -4,7 +4,7 @@ In this portion of the lab, your stock tracking app will be communicating with t
   1. [GA Stocks API](https://ga-stocks.herokuapp.com/stocks). This will be used store stocks the user wants to track.
   1. Either [Markit on Demand](http://dev.markitondemand.com/MODApis/) which is deprecated but has functional query routes, or the robust [AlphaVantage API](https://www.alphavantage.co/). One of these can be used to retrieve the latest information about a particular stock.
 
-Markit On Demand, though deprecated, is a potentially little easier to deal with due to the simplicity of its responses. Its responses are in `jsonp` format and you must use jQuery since Axios doesn't support `jsonp`.
+Markit On Demand, though deprecated, is a potentially little easier to deal with due to the simplicity of its responses. Its responses are in `jsonp` format and you must use [this library](https://www.npmjs.com/package/jsonp) since Axios doesn't support `jsonp`.
 
 Alpha Vantage has more detailed information included in its responses, which contain nested objects. It also requires a relatively painless and fast sign-up for an API key. If you go this route, you can use Axios.
 
