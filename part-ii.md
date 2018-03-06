@@ -7,6 +7,8 @@ In this portion of the lab, your stock tracking app will be communicating with t
 Alpha Vantage has a lot of detailed information included in its responses, which contain nested objects. It also requires a relatively painless and fast sign-up for an API key.
 
 Your API calls to Alphavantage will look something like this `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&interval=15min&outputsize=compact&apikey=YOUR_API_KEY_HERE`
+
+
 Check out the docs [here](https://www.alphavantage.co/documentation/#intraday) for more info about how to tweak the query parameters
 
 This version of the stock tracking app should see the following additional functionalities...
