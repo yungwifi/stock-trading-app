@@ -2,11 +2,12 @@
 
 In this portion of the lab, your stock tracking app will be communicating with two APIs...
   1. [GA Stocks API](https://ga-stocks.herokuapp.com/stocks). This will be used store stocks the user wants to track.
-  1. Either [Markit on Demand](http://dev.markitondemand.com/MODApis/) which is deprecated but has functional query routes, or the robust [AlphaVantage API](https://www.alphavantage.co/). One of these can be used to retrieve the latest information about a particular stock.
+  1. The [AlphaVantage API](https://www.alphavantage.co/), a robust api for fetching info about stocks.
 
-Markit On Demand, though deprecated, is a potentially little easier to deal with due to the simplicity of its responses. Its responses are in `jsonp` format and you must use [this library](https://www.npmjs.com/package/jsonp) since Axios doesn't support `jsonp`.
+Alpha Vantage has a lot of detailed information included in its responses, which contain nested objects. It also requires a relatively painless and fast sign-up for an API key.
 
-Alpha Vantage has more detailed information included in its responses, which contain nested objects. It also requires a relatively painless and fast sign-up for an API key. If you go this route, you can use Axios.
+Your API calls to Alphavantage will look something like this `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&interval=15min&outputsize=compact&apikey=YOUR_API_KEY_HERE`
+Check out the docs [here](https://www.alphavantage.co/documentation/#intraday) for more info about how to tweak the query parameters
 
 This version of the stock tracking app should see the following additional functionalities...
 
@@ -17,11 +18,9 @@ Instead of listing the hard-coded stocks, this page should retrieve all stocks f
 
 ## 2. Stock (`/stocks/:symbol`)
 
-The stock information beyond name and symbol (e.g., `Current Price`, `Change`) should no longer be pulled from hard-coded data. Instead, this information should be pulled from the [Markit on Demand API](http://dev.markitondemand.com/MODApis/).
+The stock information beyond name and symbol (e.g., `Current Price`, `Change`) should no longer be pulled from hard-coded data. Instead, this information should be pulled from the Alphavantage API.
 
-When this view loads, a call will be made to the [Markit on Demand API](http://dev.markitondemand.com/MODApis/) that returns a JSON representation of the stock in question.
-
-> Please reference the earlier note about the Markit on Demand API and `jsonp`
+When this view loads, a call will be made to the external API that returns a JSON representation of the stock in question.
 
 If the API call is successful, that stock's information should be displayed on the page.
 
@@ -36,16 +35,6 @@ Add a "Search" link to the navigation bar.
 If a user visits `/search` or clicks on "Search" in the navigation bar, they should be directed to a search page with a single-input form. If a user submits a stock symbol (e.g., `AAPL`) through the form, a call will be made to the external API you've chosen, Markit On Demand or Alpha Vantage.
 
 If the API call is successful, the app should display the name and symbol of that stock below the search form. To the right of this information, there should be a "Track Stock" button.
-
-##### Markit On Demand
-
-Use the following base URL for making requests to the deprecated Markit On Demand API `http://dev.markitondemand.com/Api/v2/Quote/jsonp?symbol=`. If a user submits a stock symbol (e.g., `AAPL`) through the form, a request will be made to `http://dev.markitondemand.com/Api/v2/Quote/jsonp?symbol=AAPL` that gets a response containing a JSON representation of the searched stock.
-
-> **Important Note:** The Markit on Demand API, unfortunately, does not have CORS enabled. That means when making an API call to it from our app, we need to request `jsonp` as the data type. Axios does not support `jsonp`.
->
-> An alternative approach is to import jQuery and use AJAX. Install it first by running `$ npm install --save jquery`. Then [take a look at this snippet](https://github.com/ga-wdi-exercises/react-omdb/commit/70c28576d35e93331d37a425e45b73127f0713b3#diff-a2c44f5da6f2e8575db9456a7e28d50c) to see how we would go about using it.
->
-> When using `$.ajax`, make sure to specify `jsonp` as the `dataType`
 
 ##### Alpha Vantage
 
